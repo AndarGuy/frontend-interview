@@ -1,0 +1,72 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API Предметов Minecraft",
+        "version": "1.0.0",
+        "description": "Простое API для получения списка предметов Minecraft."
+    },
+    "servers": [
+        {
+            "url": "https://api.minecraft.example.com/v1"
+        }
+    ],
+    "paths": {
+        "/items": {
+            "get": {
+                "summary": "Получить список предметов",
+                "operationId": "listItems",
+                "responses": {
+                    "200": {
+                        "description": "Страничный массив предметов",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Items"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Item": {
+                "type": "object",
+                "required": [
+                    "id",
+                    "name",
+                    "rarity",
+                    "isEdible"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "rarity": {
+                        "type": "string",
+                        "enum": [
+                            "Common",
+                            "Uncommon",
+                            "Rare",
+                            "Epic"
+                        ]
+                    },
+                    "isEdible": {
+                        "type": "boolean"
+                    }
+                }
+            },
+            "Items": {
+                "type": "array",
+                "items": {
+                    "$ref": "#/components/schemas/Item"
+                }
+            }
+        }
+    }
+}
